@@ -1,0 +1,29 @@
+name: Formatter
+
+on:
+  pull_request:
+    paths-ignore:
+      - '.github/**'
+      - '!.github/workflows/formatter.yaml'
+      - '**.md'
+    types:
+      - opened
+      - synchronize
+  workflow_dispatch:
+
+jobs:
+  formatter:
+    name: formatter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - name: Download dependencies
+        run: npm install
+      - name: Formatter
+        run: npx prettier --check app components libs
