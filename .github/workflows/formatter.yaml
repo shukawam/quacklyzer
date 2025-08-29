@@ -1,6 +1,7 @@
 name: Formatter
 
 on:
+  push:
   pull_request:
     paths-ignore:
       - '.github/**'
@@ -26,4 +27,4 @@ jobs:
       - name: Download dependencies
         run: npm install
       - name: Formatter
-        run: npx prettier --check app components libs
+        run: npm run format-check
